@@ -1,10 +1,10 @@
 package Hospital;
 
-import Clases.Medicamento;
-import Clases.Medico;
-import Clases.Paciente;
+import Clases.*;
 
 import java.net.DatagramSocket;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -61,6 +61,7 @@ public class Principal {
                     System.exit(0);
                     break;
             }
+            opcion = menuPrincipal();
         }
     }
 
@@ -132,7 +133,7 @@ public class Principal {
         return false;
     }
     private String seleccionarAntecedentes(){
-        System.out.println("Seleccione el antecedente medico del paciente: ");
+        System.out.println("Seleccione el antecedente del paciente: ");
         for (int i = 0; i < antecedentes.length; i++) {
             System.out.println((i+1) + " " + antecedentes[i]);
         }
@@ -141,7 +142,193 @@ public class Principal {
     }
 
     private void realizarConsultas(){
+        int opcion = menuConsultas();
+        while (opcion >=1 && opcion<= 8){
+            switch (opcion){
+                case 1:
+                    try {
+                        mostrarMedicosDisponibles();
+                    }catch (Exception e){
+                        System.out.println("No hay medicos registrados // no hay medicos disponibles");
+                    }
+                    break;
+                case 2:
+                    mostrarMedicamentos();
+                    break;
+                case 3:
+                    try {
+                        cirujiasRealizadas();
+                    }catch (Exception e){
+                        System.out.println("No hay cirujias registradas");
+                    }
+                    break;
+                case 4:
+                    try {
+                        consultasMedicas();
+                    }catch (Exception e){
+                        System.out.println("No se registraron consultas medicas");
+                    }
+                    break;
+                case 5:
+                    try {
+                        pacientesAtendidos();
+                    }catch (Exception e){
+                        System.out.println("El rango de fechas indicado es incorrecto");
+                    }
+                    break;
+                case 6:
+                    int cantidadPacientes = pacientesOperados();
+                    if (cantidadPacientes >= 1){
+                        System.out.println("La cantidad de pacientes operados es de: " + cantidadPacientes);
+                    }else {
+                        System.out.println("No se han realizado cirujias");
+                    }
+                    break;
+                case 7:
+                    int pacienteSegunAntecedente = pacientesAtendidosSegunAntecedente();
+                    if (pacienteSegunAntecedente == 0){
+                        System.out.println("No se han registrado paciente con el antecedente indicado");
+                    }else {
+                        System.out.println("La cantidad de pacientes atendidos, con el mismo antecedente es de: " + pacienteSegunAntecedente);
+                    }
+                    break;
+                case 8:
+                    double montoTotal = calcularMontoMedicamentos();
+                    if (montoTotal == 0.0){
+                        System.out.println("No hay medicamentos en stock");
+                    }else {
+                        System.out.println("El valor total de los medicamentos en stock es de: " + montoTotal);
+                    }
+                    break;
+            }
+            opcion = menuConsultas();
+        }
+    }
+    //SI EL ARBOL ESTA VACIO PUEDE GENERAR EXCEPCION
+    private void mostrarMedicosDisponibles(){
+        System.out.println("Mostrando medicos disponibles");
+        System.out.println(Datos.Medicosdisponibles.toString());
+    }
 
+    private void mostrarMedicamentos(){
+        int valor = Helper.validarPositivo("Ingrese un valor y se mostraran los medicamentos con stock mayor a ese valor: ");
+        if (Datos.medicamentos.length == 0){
+            System.out.println("No hay medicamentos en stock");
+        }else {
+            for (Medicamento medicamento : Datos.medicamentos) {
+                if (medicamento.getStockDisponible() >= valor){
+                    System.out.println(medicamento.toString());
+                }
+            }
+        }
+    }
+    //PUEDE GENERAR EXCEPCION
+    private void cirujiasRealizadas(){
+        if (Datos.cirugiasRealizadas.toString().equals("[]")){
+            System.out.println("No se realizaron cirujias en el dia de hoy");
+        }else {
+            System.out.println("Cirujias realizadas en el dia de hoy");
+            System.out.println(Datos.cirugiasRealizadas.toString());
+        }
+    }
+    //PUEDE GENERAR EXCEPCION
+    private void consultasMedicas() {
+        if (Datos.consultadRealizadas.toString().equals("[]")){
+            System.out.println("No se realizaron consultas medicas en el dia de hoy");
+        }else {
+            System.out.println("Consultas medicas realizadas en el dia de hoy");
+            System.out.println(Datos.consultadRealizadas.toString());
+        }
+    }
+
+    //FALTA CONTROLAR LAS EXCEPCIONES DE LAS FECHAS
+    //PUEDE DEVOLVER CERO
+    private void pacientesAtendidos(){
+        System.out.println("Indique las fechas en formato yyyy-mm-dd");
+        System.out.print("Desde: ");
+        String desde = entrada.nextLine();
+        System.out.println();
+        System.out.print("Hasta: ");
+        String hasta = entrada.nextLine();
+        System.out.println();
+
+        LocalDate fechaDesde = LocalDate.parse(desde);
+        LocalDate fechaHasta = LocalDate.parse(hasta);
+
+        int cantidadPacientes = calcularPacientesAtendidos(fechaDesde, fechaHasta);
+        if (cantidadPacientes >= 1){
+            System.out.println("La cantidad de pacientes atendidos en el rango de fechas indicado es de: " + cantidadPacientes);
+        }else {
+            System.out.println("No se han atendido pacientes en ese periodo");
+        }
+
+    }
+    private int calcularPacientesAtendidos(LocalDate desde, LocalDate hasta){
+        int contadorPacientes = 0;
+        if (Datos.cirugiasRealizadas.size() >= 1){
+            int tam = Datos.cirugiasRealizadas.size();
+            for (int i = 0; i < tam; i++) {
+                Cirugia cirugia = Datos.cirugiasRealizadas.getFirst();
+                if (cirugia.getFecha().isAfter(desde) && cirugia.getFecha().isBefore(hasta)){
+                    contadorPacientes++;
+                }
+                Datos.cirugiasRealizadas.addLast(cirugia);
+            }
+        }
+        if (Datos.consultadRealizadas.size() >= 1){
+            int tam = Datos.consultadRealizadas.size();
+            for (int i = 0; i < tam; i++) {
+                ConsultaMedica consulta = Datos.consultadRealizadas.getFirst();
+                if (consulta.getFecha().isAfter(desde) && consulta.getFecha().isBefore(hasta)){
+                    contadorPacientes++;
+                }
+                Datos.consultadRealizadas.addLast(consulta);
+            }
+        }
+        return contadorPacientes;
+    }
+    //SI LA LISTA DE CIRUJIAS ESTA VACIA devuelve cero
+    private int pacientesOperados(){
+        int cantidadPacientes = 0;
+        int edadDesde = Helper.validarPositivo("Ingrese la edad minima: ");
+        int edadHasta = Helper.validarPositivo("Ingrese la edad maxima: ");
+        int tam = Datos.cirugiasRealizadas.size();
+
+        for (int i = 0; i < tam; i++) {
+            Cirugia cirugia = Datos.cirugiasRealizadas.getFirst();
+            if (cirugia.getPaciente().getEdad() >= edadDesde && cirugia.getPaciente().getEdad() <= edadHasta){
+                cantidadPacientes++;
+            }
+            Datos.cirugiasRealizadas.addLast(cirugia);
+        }
+        return cantidadPacientes;
+    }
+    //PUEDE RETORNAR CERO
+    private int pacientesAtendidosSegunAntecedente(){
+        String antecedente = this.seleccionarAntecedentes();
+        int contadorPacientes = 0;
+
+        if (Datos.consultadRealizadas.size() >= 1){
+            int tam = Datos.consultadRealizadas.size();
+            for (int i = 0; i < tam; i++) {
+                ConsultaMedica consulta = Datos.consultadRealizadas.getFirst();
+                if (consulta.getPaciente().getAntecedentes().equals(antecedente)){
+                    contadorPacientes++;
+                }
+            }
+        }
+        return contadorPacientes;
+    }
+    //PUEDE RETORNAR CERO
+    private double calcularMontoMedicamentos(){
+        double monto = 0.0;
+        for (int i = 0; i < Datos.medicamentos.length; i++) {
+            Medicamento medicamento = Datos.medicamentos[i];
+            if (medicamento.getStockDisponible() >= 1){
+                monto += (medicamento.getStockDisponible()*medicamento.getPrecioUnitario());
+            }
+        }
+        return monto;
     }
     private int menuPrincipal() {
         System.out.println("""
