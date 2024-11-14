@@ -6,7 +6,12 @@ public class Main {
 
         Principal principal = new Principal();
         principal.MEDICOSPRUEBA();
-        GestorConsultorio gestor = new GestorConsultorio();
-        gestor.buscarmedico();
+
+        GestorConsultorio.run();
+//       GestorConsultorio gestor = new GestorConsultorio();
+//        gestor.generarConsultas();
+        // Medico m =gestor.buscarmedico();
+        // System.out.println("ess: "+m);
+
     }
 }

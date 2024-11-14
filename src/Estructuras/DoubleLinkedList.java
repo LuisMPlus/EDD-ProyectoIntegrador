@@ -146,82 +146,6 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
         return this.getFirst();
     }
 
-
-    public void addFirst2(ELEMENT item){
-        Node<ELEMENT> nuevo_nodo = new Node<ELEMENT>(item);
-        if(this.tail == null) {
-            this.tail = nuevo_nodo;
-        } else {
-            Node<ELEMENT> temp = this.tail;
-            while(temp.prev != null) {
-                temp = temp.prev;
-            }
-            temp.prev = null;
-        }
-    }
-
-    public ELEMENT removeFirst2(){
-        if(this.tail == null){
-            throw new RuntimeException("The list is empty");
-        }
-        ELEMENT item;
-        if(this.tail.prev == null) {
-            item = this.tail.item;
-            this.tail = null;
-        } else {
-            Node<ELEMENT> skip = this.tail;
-            while(skip.prev != null) {
-                skip = skip.prev;
-            }
-            item = skip.item;
-            skip = skip.next;
-            skip.prev = null;
-        }
-        return item;
-    }
-
-    public ELEMENT removeLast2(){
-        if(this.head == null){
-            //Si la lista esta vacia
-            throw new RuntimeException("The list is empty");
-        }
-        ELEMENT item;
-        if(this.head.next == null){
-            //En el caso que solo tenga un nodo la lista
-            item = this.head.item;
-            this.head = null;
-        } else {
-            //SI tiene mas de un nodo.
-            Node<ELEMENT> actual = this.head;
-            while(actual.next != null){
-                actual = actual.next;
-            }
-            item = actual.item;
-            actual = actual.prev;
-            actual.next = null;
-        }
-        return item;
-    }
-
-
-    public String toString2() {
-
-        if (this.tail == null || this.head == null) {
-            return "[]";
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("[" + this.tail.item.toString());
-        for (Node<ELEMENT> skip = this.tail.prev; skip != null; skip = skip.prev) {
-            sb.append(", " + skip.item.toString());
-        }
-        sb.append("]");
-
-        return sb.toString();
-    }
-
-
     public String toString() {
 
         if (this.head == null || this.tail == null) {
@@ -230,9 +154,9 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("[" + this.head.item.toString());
+        sb.append("[" + "\n" + this.head.item.toString());
         for (Node<ELEMENT> skip = this.head.next; skip != null; skip = skip.next) {
-            sb.append(", " + skip.item.toString());
+            sb.append(skip.item.toString() + "\n");
         }
         sb.append("]");
 

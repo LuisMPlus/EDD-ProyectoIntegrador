@@ -130,10 +130,4 @@ public class BinarySearchTree<ELEMENT extends Comparable<ELEMENT>> extends Binar
         return save;
     }
 
-    public BinarySearchTree<ELEMENT> cloneTree(){
-        BinarySearchTree<ELEMENT> copy = new BinarySearchTree<ELEMENT>();
-        copy.root=this.root;
-        return copy;
-    }
-
 }

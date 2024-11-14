@@ -37,8 +37,6 @@ public class Paciente {
         return diagnosticoPreliminar;
     }
 
-
-
     @Override
     public String toString() {
         return "Paciente{" +

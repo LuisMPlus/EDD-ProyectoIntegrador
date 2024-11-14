@@ -213,13 +213,13 @@ public class Helper<ELEMENT> {
     }
 
     // Método para validar una fecha ingresada por consola en un formato específico
-    public static LocalDate validarFecha(Scanner entrada, String mensaje, String formato) {
+    public static LocalDate validarFecha( String mensaje, String formato) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
         LocalDate fecha;
 
         while (true) {
-            System.out.println(mensaje + " (formato " + formato + "):");
-            String valorIngresado = entrada.nextLine().trim();
+            System.out.print(mensaje + " (formato " + formato + "):");
+            String valorIngresado = scanner.nextLine().trim();
             try {
                 fecha = LocalDate.parse(valorIngresado, formatter);
                 return fecha;
@@ -230,13 +230,13 @@ public class Helper<ELEMENT> {
     }
 
     // Método para validar la entrada de un tiempo en formato HH:mm:ss
-    public static LocalTime validarHora(Scanner entrada, String mensaje) {
+    public static LocalTime validarHora(String mensaje) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime hora;
 
         while (true) {
-            System.out.println(mensaje + " (formato HH:mm:ss):");
-            String valorIngresado = entrada.nextLine().trim();
+            System.out.print(mensaje + " (formato HH:mm:ss):");
+            String valorIngresado = scanner.nextLine().trim();
             try {
                 hora = LocalTime.parse(valorIngresado, formatter);
                 return hora;
@@ -274,7 +274,6 @@ public class Helper<ELEMENT> {
         String mensajeError = "El numero no esta en el intervalo de [" + infimo + ", " + supremo + "]";
 
         while(true){
-            System.out.print(mensaje);
             valor = Helper.getInteger(mensaje);
 
             if(infimo <= valor && valor <= supremo){

@@ -9,13 +9,13 @@ public class Datos {
     protected static Medicamento[] medicamentos; //Medicamentos disponibles
 
     //Pacientes con diagnostico preliminar 2
-    protected static Queue<Paciente> prioridadMedia = new Queue<>(50);
+    protected static Queue<Paciente> prioridadMedia = new Queue<>(15);
     //Pacientes con diagnostico preliminar 1
-    protected static Queue<Paciente> prioridadAlta = new Queue<>(50);
+    protected static Queue<Paciente> prioridadAlta = new Queue<>(15);
 
 
     //Almacenara cirugias que resultan de la atencion de los pacientes de la cola de prioridadAlta
-    protected static Stack<Cirugia> programadas;
+    protected static Stack<Cirugia> programadas = new Stack<>(10);
 
 
     //Que reulstan de la atencion de los pacientes de la cola prioridadMedia
@@ -36,7 +36,7 @@ public class Datos {
 
 
 
-    //Getters de las estructuras
+    //Mostrar datos de las estructuras
 
     public void mostrarDatos(){
         System.out.println("Array de medicamentos: ");

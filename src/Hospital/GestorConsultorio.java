@@ -5,16 +5,17 @@ import Estructuras.BinarySearchTree;
 
 public class GestorConsultorio {
 
-    public GestorConsultorio(){
-
-    }
-
     public void generarConsulta(String especialidad){
 
 
     }
 
-    public Medico buscarmedico(){
+    public static Medico buscarmedico(){
+        int cantMedicos = Datos.Medicosdisponibles.NodeCount();
+
+        ArrayList<Integer> matriculasAux = new ArrayList<>();
+        int matricula = 0;
+
         try{
              int ramdom =(int) Math.random()*(Datos.matriculas.size()-1);
             System.out.println("entro");

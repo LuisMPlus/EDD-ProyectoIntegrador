@@ -25,9 +25,9 @@ public class BinaryTree<ELEMENT extends Comparable<ELEMENT>> {
             return this.item.toString();
         }
 
-        // Método para propósitos académicos
+
         public void Visit() {
-            System.out.printf("%s ", this.item.toString());
+            System.out.println(this.item.toString());
         }
     }
 
