@@ -98,7 +98,7 @@ public class GestorQuirofano {
                 System.out.println(e.getMessage());
             }
 
-            if(medico.getEspecialidad().equals("Cirujano")) break;
+            if(medico.getEspecialidad().equalsIgnoreCase("Cirujano")) break;
 
             matriculasAux.add(Datos.matriculas.remove(matricula));
             Datos.Medicosdisponibles.add(medico);

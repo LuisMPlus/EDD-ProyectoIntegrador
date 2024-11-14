@@ -185,20 +185,4 @@ public class BinaryTree<ELEMENT extends Comparable<ELEMENT>> {
     }
 
 
-    public ELEMENT findObject(ELEMENT item) {
-       return findObject(this.root, item);
-    }
-
-    protected ELEMENT findObject(BTNode<ELEMENT> root,ELEMENT item) {
-        if (root != null) {
-            InOrder(root.left);
-            if(root.item.compareTo(item)==0){
-                ELEMENT element=root.item;
-                return element;
-            }
-            InOrder(root.right);
-        }
-        return null;
-    }
-
 }

@@ -15,6 +15,10 @@ public class Medicamento {
         this.stockDisponible = stockDisponible;
     }
 
+    public void setStock(int stock) {
+        this.stockDisponible=stock;
+    }
+
     public int getCodigo() {
         return codigo;
     }

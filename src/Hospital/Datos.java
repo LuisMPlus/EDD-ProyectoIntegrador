@@ -6,7 +6,9 @@ import Clases.*;
 import java.util.ArrayList;
 
 public class Datos {
-    protected static Medicamento[] medicamentos; //Medicamentos disponibles
+    protected static Medicamento[] medicamentos=new Medicamento[4]; //Medicamentos disponibles
+
+    protected static ArrayList<Medico> salaDeDescanso = new ArrayList<>();
 
     //Pacientes con diagnostico preliminar 2
     protected static Queue<Paciente> prioridadMedia = new Queue<>(15);
@@ -19,10 +21,10 @@ public class Datos {
 
 
     //Que reulstan de la atencion de los pacientes de la cola prioridadMedia
-    protected static DoubleLinkedList<ConsultaMedica> consultadRealizadas;
+    protected static DoubleLinkedList<ConsultaMedica> consultasRealizadas = new DoubleLinkedList<>();
 
     //Las cirugías que se realizan (salen de la pila programadas) deben guardarse en una lista para su posterior control.
-    protected static DoubleLinkedList<Cirugia> cirugiasRealizadas;
+    protected static DoubleLinkedList<Cirugia> cirugiasRealizadas = new DoubleLinkedList<>();
 
 
     //Guardara la informacion de los medicos disponibles
@@ -48,7 +50,7 @@ public class Datos {
         System.out.println("Stack de programadas");
         System.out.println(programadas.toString());
         System.out.println("DoubleLinkedList de consultadas1");
-        System.out.println(consultadRealizadas.toString());
+        System.out.println(consultasRealizadas.toString());
         System.out.println("DoubleLinkedList de cirugias");
         System.out.println(cirugiasRealizadas.toString());
         System.out.println("BinarySearchTree de medicosdisponibles");

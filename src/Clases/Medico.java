@@ -6,13 +6,18 @@ public class Medico implements Comparable<Medico>{
     private String especialidad;
 
     public Medico() {}
-
     //Este constructor es para instanciar un medico para añadir o removerla por la matricula
     //en el arbol
     public Medico(int matricula) {
         this.matriculaProfesional = matricula;
         nombre = "";
         especialidad = "";
+    }
+
+    public Medico(int matricula,String especialidad) {
+        this.matriculaProfesional = matricula;
+        nombre = "";
+        this.especialidad =especialidad;
     }
 
     public Medico(int matriculaProfesional, String nombre, String especialidad) {

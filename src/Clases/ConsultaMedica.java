@@ -11,12 +11,18 @@ public class ConsultaMedica {
 
     public ConsultaMedica() {}
 
+
+
     public ConsultaMedica(Medico medicoACargo, Paciente paciente, String medicacionAdministrada, int cantidadAplicada, LocalDate fecha) {
         this.medicoACargo = medicoACargo;
         this.paciente = paciente;
         this.medicacionAdministrada = medicacionAdministrada;
         this.cantidadAplicada = cantidadAplicada;
         this.fecha = fecha;
+    }
+
+    public void setMedicacionAdministrada(String medicacion) {
+        this.medicacionAdministrada=medicacion;
     }
 
     public Medico getMedicoACargo() {
