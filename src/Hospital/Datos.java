@@ -106,12 +106,12 @@ public class Datos {
 
         prioridadAlta.offer(new Paciente(1232, "Juan", 20, "Diabetes", 1));
         prioridadAlta.offer(new Paciente(1232, "Pepe", 25, "Obesidad", 1));
-        prioridadAlta.offer(new Paciente(1232, "Jorge", 50, "Problemas renales", 1));
+        prioridadAlta.offer(new Paciente(43407120, "Gaston Valdiviezo", 14, "Problemas renales", 1));
         prioridadAlta.offer(new Paciente(1232, "Ernesto", 37, "Taquicardia", 1));
 
         programadas.push(new Cirugia(Medicosdisponibles.remove(new Medico(1000)), prioridadAlta.remove(), LocalDate.now()));
         programadas.push(new Cirugia(Medicosdisponibles.remove(new Medico(1001)), prioridadAlta.remove(), LocalDate.now().plusDays(2)));
-        programadas.push(new Cirugia(Medicosdisponibles.remove(new Medico(1002)), prioridadAlta.remove(), LocalDate.now().plusWeeks(1)));
+        programadas.push(new Cirugia(Medicosdisponibles.remove(new Medico(1002)), prioridadAlta.remove(), LocalDate.now()));
 
         consultasRealizadas.addFirst(new ConsultaMedica(Medicosdisponibles.remove(new Medico(1003)), prioridadMedia.remove(), "Ibuprofeno", 2, LocalDate.now()));
         consultasRealizadas.addFirst(new ConsultaMedica(Medicosdisponibles.remove(new Medico(1004)), prioridadMedia.remove(), "Nada", 1, LocalDate.now()));

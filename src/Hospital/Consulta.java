@@ -15,7 +15,7 @@ public class Consulta {
     protected static int menuConsultas(){
         System.out.println("""
                 1. Medicos disponibles
-                2. Medicamentos con stock mayor o igual a un valor indicado
+                2. Medicamentos con stock menor o igual a un valor indicado
                 3. Cirujias realizadas
                 4. Consultas medicas efectuadas
                 5. Cantidad de pacientes atendidos en un rango de fechas indicadas

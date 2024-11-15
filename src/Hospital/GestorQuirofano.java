@@ -25,7 +25,7 @@ public class GestorQuirofano {
         while(true){
             menu();
             opcion = Helper.validarEnIntervalo("Seleccione una opcion: ", 1, 3);
-
+            System.out.println();
             switch (opcion){
                 case 1:
                     atenderPacientes();
@@ -57,6 +57,8 @@ public class GestorQuirofano {
             return;
         }
         Datos.programadas.push(cirugia);
+        System.out.printf("%-25s %-20s %-20s %-15s %-10s%n", "Nombre del Medico", "Matricula", "Nombre Paciente", "DNI", "Edad");
+        System.out.println(Datos.programadas.peek());;
         System.out.println("Cirugia programada con exito");
 
     }

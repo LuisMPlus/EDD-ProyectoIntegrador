@@ -136,18 +136,22 @@ public class Principal {
         while (!validarDNI(dni)){
             dni = Helper.validarPositivo("DNI invalido debe ser de 8 caracteres, ingrese uno correcto: ");
         }
-
+        while (Datos.dniRegistrados.contains(dni)){
+            dni = Helper.validarPositivo("El dni ya esta registrado, ingrese uno correcto: ");
+        }
+        Datos.dniRegistrados.add(dni);
         String nombre = Helper.validarString("Ingrese el nombre completo del paciente: ");
         int edad = Helper.validarPositivo("Ingrese la edad del paciente: ");
         String antecedenteMedico = seleccionarAntecedentes();
         int diagnostico = rand.nextInt(1,3);
+
 
         return new Paciente(dni, nombre, edad, antecedenteMedico, diagnostico);
     }
 
     private boolean validarDNI(int dni){
         int cantDigitos = String.valueOf(dni).length();
-        if (cantDigitos == 8 || Datos.dniRegistrados.contains(dni)){
+        if (cantDigitos == 8){
             return true;
         }
         return false;
