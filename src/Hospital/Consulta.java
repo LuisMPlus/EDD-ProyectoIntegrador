@@ -110,12 +110,9 @@ public class Consulta {
             System.out.printf("%-46s %-45s%n", "Datos del medico", "Datos del paciente");
             System.out.printf("%-25s %-20s %-20s %-15s %-10s %-10s%n", "Nombre", "Matricula", "Nombre", "DNI", "Edad", "Fecha");
             System.out.println("________________________________________________________________________________________________________");
-            int cantCirujias = Datos.cirugiasRealizadas.size();
-            for (int i = 0; i < cantCirujias; i++) {
-                Cirugia actual = Datos.cirugiasRealizadas.removeFirst();
-                System.out.print(actual.toString());
+            for (Cirugia cirujia: Datos.cirugiasRealizadas) {
+                System.out.print(cirujia.toString());
                 System.out.println("________________________________________________________________________________________________________");
-                Datos.cirugiasRealizadas.addLast(actual);
             }
         }
     }
@@ -207,7 +204,6 @@ public class Consulta {
         int contadorPacientes = 0;
 
         if (Datos.consultasRealizadas.size() >= 1){
-            int tam = Datos.consultasRealizadas.size();
             for (ConsultaMedica consulta: Datos.consultasRealizadas) {
                 if (consulta.getPaciente().getAntecedentes().equalsIgnoreCase(antecedente)){
                     contadorPacientes++;
