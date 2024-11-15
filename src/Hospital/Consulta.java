@@ -1,8 +1,8 @@
 package Hospital;
 
-import Clases.Cirugia;
-import Clases.ConsultaMedica;
-import Clases.Medicamento;
+import ClasesDadas.Cirugia;
+import ClasesDadas.ConsultaMedica;
+import ClasesDadas.Medicamento;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -31,6 +31,7 @@ public class Consulta {
 
     public static void realizarConsultas(){
         int opcion;
+        System.out.println();
         while (true){
             opcion = menuConsultas();
 
@@ -88,7 +89,7 @@ public class Consulta {
     }
 
     protected static void mostrarMedicamentos(){
-        int valor = Helper.validarPositivo("Ingrese un valor y se mostraran los medicamentos con stock mayor a ese valor: ");
+        int valor = Helper.validarPositivo("Ingrese un valor y se mostraran los medicamentos con stock menor o igual a ese valor: ");
         if (Datos.medicamentos.length == 0){
             System.out.println("No hay medicamentos en stock");
         }else {

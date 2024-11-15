@@ -1,4 +1,4 @@
-package Clases;
+package ClasesDadas;
 
 public class Medico implements Comparable<Medico>{
     private int matriculaProfesional;

@@ -154,7 +154,7 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("[" + "\n" + this.head.item.toString());
+        sb.append("[" + "\n" + this.head.item.toString() + "\n");
         for (Node<ELEMENT> skip = this.head.next; skip != null; skip = skip.next) {
             sb.append(skip.item.toString() + "\n");
         }

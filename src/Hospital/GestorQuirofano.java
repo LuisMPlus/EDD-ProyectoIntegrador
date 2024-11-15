@@ -1,31 +1,29 @@
 package Hospital;
 
-import Clases.*;
+import ClasesDadas.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GestorQuirofano {
     private static final int cantQuirofanos = 3;
-    private static Medico medico;
 
     public static void run(){
         System.out.println();
         ControladorMenu();
-
     }
 
     public static void menu(){
-        System.out.println("1. Atender Pacientes en quirofano");
+        System.out.println("------------- QUIROFANO ------------------");
+        System.out.println("1. Atender Paciente");
         System.out.println("2. Realizar Cirugia");
-        System.out.println("3. Salir del gestor de cirugias");
+        System.out.println("3. Salir del quirofano");
     }
 
     public static void ControladorMenu(){
         int opcion;
-        menu();
         while(true){
+            menu();
             opcion = Helper.validarEnIntervalo("Seleccione una opcion: ", 1, 3);
 
             switch (opcion){
@@ -35,29 +33,41 @@ public class GestorQuirofano {
                 case 2:
                     realizarCirugia();
                     break;
-
+                case 3:
+                    return;
+                default:
+                    System.out.println("Opcion invalida");
             }
+            System.out.println();
         }
     }
 
     public static void atenderPacientes(){
         int cantPacientes = Datos.prioridadAlta.size();
 
-        if(cantPacientes < cantQuirofanos){
-            for(int i = 0; i < cantPacientes; i++){
-
-            }
-        } else {
-            for(int i = 0; i < cantQuirofanos; i++){
-              Cirugia cirugia = pedirCirugia();
-              Datos.programadas.push(cirugia);
-            }
+        if(cantPacientes == 0){
+            System.out.println("No hay pacientes en cola");
+            return;
         }
+
+        //Iteramos la cantidad de veces de aux
+        Cirugia cirugia = pedirCirugia();
+        if(cirugia == null) {
+            System.out.println("No se pudo programar la cirugia. Lo sentimos");
+            return;
+        }
+        Datos.programadas.push(cirugia);
+        System.out.println("Cirugia programada con exito");
 
     }
 
     protected static Cirugia pedirCirugia (){
         Medico medico = asignarMedico();
+
+        if(medico == null){
+            System.out.println("No hay medicos disponibles");
+            return null;
+        }
 
         Paciente  paciente= null;
         try{
@@ -65,64 +75,56 @@ public class GestorQuirofano {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
+
         LocalDate fecha = Helper.validarFecha("Ingrese la fecha de la cirugia", "yy-MM-dd");
 
         return new Cirugia(medico, paciente, fecha);
     }
 
     public static Medico asignarMedico(){
-        medico = seleccionarMedico();
+        int cantMedicos = Datos.Medicosdisponibles.NodeCount();
+        Medico encontrado = null;
 
-        System.out.println("El medico seleccionado es: ");
-        System.out.println(medico.toString());
-
-        System.out.println("Arbol: ");
-        System.out.println(Datos.Medicosdisponibles);
-
-        return medico;
-    }
-
-    public static Medico seleccionarMedico(){
-        int cantMedicos = Datos.matriculas.size();
-        Medico medico = new Medico();
+        ArrayList<Integer> matriculasAux = new ArrayList<>();
         int matricula = 0;
 
-        ArrayList<Integer> matriculasAux = new ArrayList();
+        try{
+            for (int i = 0; i < cantMedicos; i++) {
+                //System.out.println("matriculas" + Datos.matriculas);
 
-        for (int i = 0; i < cantMedicos; i++) {
-            matricula = seleccionarMatricula();
+                int ramdom = Helper.random.nextInt(Datos.matriculas.size());
+                matricula = Datos.matriculas.remove(ramdom);
 
-            try{
-                medico = Datos.Medicosdisponibles.remove(new Medico(matricula));
-            } catch (Exception e){
-                System.out.println(e.getMessage());
+                //System.out.println("matricula elegida aleatoriamente: " + matricula);
+                matriculasAux.add(matricula);
+
+                //Datos.Medicosdisponibles.InOrder();
+                encontrado = Datos.Medicosdisponibles.remove(new Medico(matricula));
+
+                if (encontrado.getEspecialidad().equals("Clinico")){
+                    break;
+                }
+                Datos.Medicosdisponibles.add(encontrado);
+                Datos.matriculas.add(matricula);
+
             }
-
-            if(medico.getEspecialidad().equalsIgnoreCase("Cirujano")) break;
-
-            matriculasAux.add(Datos.matriculas.remove(matricula));
-            Datos.Medicosdisponibles.add(medico);
+        }catch (Exception e){
+            throw new RuntimeException("Error al asignar el medico..." + e.getMessage());
         }
 
-        //Volver a llenar el arrayList de matriculas
+        //Volver a llenar el arrayList de matriculas del arrayListAux
         for(int i = matriculasAux.size(); i > 0; i--){
-            int matricuAux = matriculasAux.remove(0);
-
+            int matricuAux = matriculasAux.removeLast();
             if(matricuAux != matricula){
-                Datos.matriculas.add(matriculasAux.remove(0));
+                Datos.matriculas.add(matricuAux);
             }
         }
 
-        return medico;
-    }
-
-    public static int seleccionarMatricula(){
-        Random rand = new Random();
-        //Se selecciona un indice random del arrayList
-        int indice = rand.nextInt(Datos.matriculas.size());
-        int matricula = Datos.matriculas.get(indice);
-
-        return matricula;
+        if(encontrado != null){
+            return encontrado;
+        } else {
+            return null;
+        }
     }
 
     public static void realizarCirugia(){
@@ -131,21 +133,20 @@ public class GestorQuirofano {
             return;
         }
 
-        if (Datos.programadas.count() >= cantQuirofanos){
-            for (int i = 0; i < 3; i++) {
-                Cirugia cirugia = Datos.programadas.pop();
-                Datos.salaDeDescanso.add(cirugia.getMedicoResponsable());
-                Datos.cirugiasRealizadas.addLast(cirugia);
-            }
-            System.out.println("Se han realizado 3 cirujias en simultaneo...");
-
-        }else {
-            for (int i = 0; i < Datos.programadas.count(); i++) {
-                Cirugia cirugia = Datos.programadas.pop();
-                Datos.salaDeDescanso.add(cirugia.getMedicoResponsable());
-                Datos.cirugiasRealizadas.addLast(cirugia);
-            }
-            System.out.println("Se han realizado " + Datos.programadas.count() + " cirugias");
+        int aux = 0;
+        if(Datos.programadas.count() < cantQuirofanos){
+            aux = Datos.programadas.count();
+        } else {
+            aux = cantQuirofanos;
         }
+        System.out.println("aux = " + aux);
+
+        for (int i = 0; i < aux; i++) {
+            Cirugia cirugia = Datos.programadas.pop();
+            Datos.salaDeDescanso.add(cirugia.getMedicoResponsable());
+            Datos.cirugiasRealizadas.addLast(cirugia);
+        }
+        System.out.println("Se han realizado " + aux + " cirujias en simultaneo...");
+
     }
 }

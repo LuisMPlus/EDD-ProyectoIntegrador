@@ -1,4 +1,4 @@
-package Clases;
+package ClasesDadas;
 
 public class Medicamento {
     private int codigo;

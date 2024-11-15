@@ -1,8 +1,8 @@
 package Hospital;
 
-import Clases.ConsultaMedica;
-import Clases.Medico;
-import Clases.Paciente;
+import ClasesDadas.ConsultaMedica;
+import ClasesDadas.Medico;
+import ClasesDadas.Paciente;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
