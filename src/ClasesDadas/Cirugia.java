@@ -29,7 +29,8 @@ public class Cirugia {
 
     @Override
     public String toString() {
-        return String.format("%-25s %-20s %-20s %-15s %-10s%n", medicoResponsable.getNombre(), medicoResponsable.getMatriculaProfesional(), paciente.getNombre(), paciente.getDni(), paciente.getEdad());
+        return String.format("%-25s %-20s %-20s %-15s %-10s %-10s%n", medicoResponsable.getNombre(), medicoResponsable.getMatriculaProfesional(),
+                paciente.getNombre(), paciente.getDni(), paciente.getEdad(), fecha.toString());
 
     }
 }

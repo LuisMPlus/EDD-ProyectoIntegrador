@@ -108,13 +108,13 @@ public class Consulta {
         }else {
             System.out.println();
             System.out.printf("%-46s %-45s%n", "Datos del medico", "Datos del paciente");
-            System.out.printf("%-25s %-20s %-20s %-15s %-10s%n", "Nombre", "Matricula", "Nombre", "DNI", "Edad");
-            System.out.println("_____________________________________________________________________________________________");
+            System.out.printf("%-25s %-20s %-20s %-15s %-10s %-10s%n", "Nombre", "Matricula", "Nombre", "DNI", "Edad", "Fecha");
+            System.out.println("________________________________________________________________________________________________________");
             int cantCirujias = Datos.cirugiasRealizadas.size();
             for (int i = 0; i < cantCirujias; i++) {
                 Cirugia actual = Datos.cirugiasRealizadas.removeFirst();
                 System.out.print(actual.toString());
-                System.out.println("_____________________________________________________________________________________________");
+                System.out.println("________________________________________________________________________________________________________");
                 Datos.cirugiasRealizadas.addLast(actual);
             }
         }

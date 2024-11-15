@@ -57,7 +57,7 @@ public class GestorQuirofano {
             return;
         }
         Datos.programadas.push(cirugia);
-        System.out.printf("%-25s %-20s %-20s %-15s %-10s%n", "Nombre del Medico", "Matricula", "Nombre Paciente", "DNI", "Edad");
+        System.out.printf("%-25s %-20s %-20s %-15s %-10s %-10s%n", "Nombre del Medico", "Matricula", "Nombre Paciente", "DNI", "Edad", "Fecha");
         System.out.println(Datos.programadas.peek());;
         System.out.println("Cirugia programada con exito");
 
