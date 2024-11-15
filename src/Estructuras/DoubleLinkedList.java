@@ -154,11 +154,10 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("[" + "\n" + this.head.item.toString() + "\n");
+        sb.append(this.head.item.toString());
         for (Node<ELEMENT> skip = this.head.next; skip != null; skip = skip.next) {
-            sb.append(skip.item.toString() + "\n");
+            sb.append(skip.item.toString());
         }
-        sb.append("]");
 
         return sb.toString();
     }

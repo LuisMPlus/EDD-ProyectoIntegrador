@@ -37,11 +37,6 @@ public class Medicamento {
 
     @Override
     public String toString() {
-        return "Medicamento{" +
-                "codigo='" + codigo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", precioUnitario=" + precioUnitario +
-                ", stockDisponible=" + stockDisponible +
-                '}';
+        return String.format("%-10s %-15s %-18s %-20s%n", codigo, descripcion, precioUnitario, stockDisponible);
     }
 }

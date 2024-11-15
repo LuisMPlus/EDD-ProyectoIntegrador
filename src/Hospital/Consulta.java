@@ -52,7 +52,7 @@ public class Consulta {
                     pacientesAtendidos();
                     break;
                 case 6:
-                    mostrarPacientesOperados();
+                     mostrarPacientesOperados();
                     break;
                 case 7:
                     int pacienteSegunAntecedente = pacientesAtendidosSegunAntecedente();
@@ -83,7 +83,7 @@ public class Consulta {
             System.out.println("No hay medicos disponibles");
         }
         else {
-            System.out.println("Mostrando medicos disponibles");
+            System.out.printf("%-25s %-15s %-15s%n", "Nombre", "Especialidad", "Matricula");
             Datos.Medicosdisponibles.InOrder();
         }
     }
@@ -93,9 +93,10 @@ public class Consulta {
         if (Datos.medicamentos.length == 0){
             System.out.println("No hay medicamentos en stock");
         }else {
+            System.out.printf("%-10s %-15s %-18s %-20s%n", "codigo", "descripcion", "precioUnitario", "stockDisponible");
             for (Medicamento medicamento : Datos.medicamentos) {
                 if (medicamento.getStockDisponible() <= valor){
-                    System.out.println(medicamento.toString());
+                    System.out.print(medicamento.toString());
                 }
             }
         }
@@ -105,8 +106,17 @@ public class Consulta {
         if (Datos.cirugiasRealizadas.toString().equals("[]")){
             System.out.println("No se realizaron cirujias en el dia de hoy");
         }else {
-            System.out.println("Cirujias realizadas en el dia de hoy");
-            System.out.println(Datos.cirugiasRealizadas.toString());
+            System.out.println();
+            System.out.printf("%-46s %-45s%n", "Datos del medico", "Datos del paciente");
+            System.out.printf("%-25s %-20s %-20s %-15s %-10s%n", "Nombre", "Matricula", "Nombre", "DNI", "Edad");
+            System.out.println("_____________________________________________________________________________________________");
+            int cantCirujias = Datos.cirugiasRealizadas.size();
+            for (int i = 0; i < cantCirujias; i++) {
+                Cirugia actual = Datos.cirugiasRealizadas.removeFirst();
+                System.out.print(actual.toString());
+                System.out.println("_____________________________________________________________________________________________");
+                Datos.cirugiasRealizadas.addLast(actual);
+            }
         }
     }
     //PUEDE GENERAR EXCEPCION
@@ -114,8 +124,13 @@ public class Consulta {
         if (Datos.consultasRealizadas.toString().equals("[]")){
             System.out.println("No se realizaron consultas medicas en el dia de hoy");
         }else {
-            System.out.println("Consultas medicas realizadas en el dia de hoy");
-            System.out.println(Datos.consultasRealizadas.toString());
+            System.out.printf("%-34s %-41s%n", "Datos del Medico", "Datos del Paciente");
+            System.out.printf("%-8s %-24s %-10s %-25s %-10s %-14s %-4s%n", "Matricula", "Nombre", "DNI", "Nombre", "Antecedente", "Medicacion", "Cantidad administrada");
+            System.out.println("________________________________________________________________________________________________________________________");
+            for (ConsultaMedica consulta : Datos.consultasRealizadas) {
+                System.out.print(consulta.toString());
+                System.out.println("________________________________________________________________________________________________________________________");
+            }
         }
     }
 

@@ -27,7 +27,7 @@ public class BinaryTree<ELEMENT extends Comparable<ELEMENT>> {
 
 
         public void Visit() {
-            System.out.println(this.item.toString());
+            System.out.print(this.item.toString());
         }
     }
 

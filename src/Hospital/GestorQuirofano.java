@@ -76,7 +76,7 @@ public class GestorQuirofano {
             System.out.println(e.getMessage());
         }
 
-        LocalDate fecha = Helper.validarFecha("Ingrese la fecha de la cirugia", "yy-MM-dd");
+        LocalDate fecha = LocalDate.now();
 
         return new Cirugia(medico, paciente, fecha);
     }
@@ -139,7 +139,7 @@ public class GestorQuirofano {
         } else {
             aux = cantQuirofanos;
         }
-        System.out.println("aux = " + aux);
+        //System.out.println("aux = " + aux);
 
         for (int i = 0; i < aux; i++) {
             Cirugia cirugia = Datos.programadas.pop();

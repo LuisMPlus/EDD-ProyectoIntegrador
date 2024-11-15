@@ -46,7 +46,7 @@ public class ConsultaMedica {
     }
 
     @Override
-    public String toString() {
+    /*public String toString() {
         return "ConsultaMedica{" +
                 "medicoACargo=" + medicoACargo +
                 ", paciente=" + paciente +
@@ -54,5 +54,10 @@ public class ConsultaMedica {
                 ", cantidadAplicada=" + cantidadAplicada +
                 ", fecha=" + fecha +
                 '}';
+    }*/
+    public String toString(){
+        return String.format("%-8s %-25s %-10s %-25s %-11s %-15s %-4s%n", medicoACargo.getMatriculaProfesional(), medicoACargo.getNombre(),
+                paciente.getDni(), paciente.getNombre(), paciente.getAntecedentes(),
+                medicacionAdministrada, cantidadAplicada);
     }
 }

@@ -115,7 +115,7 @@ public class Principal {
         }
 
         System.out.println("Ingrese la especialidad del medico: ");
-        int especialidad = Helper.validarEnIntervalo("1. Cirujano \n2. Clinico", 1, 2);
+        int especialidad = Helper.validarEnIntervalo("1. Cirujano \n2. Clinico\n", 1, 2);
 
         if (especialidad == 1){
             Datos.Medicosdisponibles.add(new Medico(matricula, nombre, "Cirujano"));

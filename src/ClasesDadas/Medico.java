@@ -50,11 +50,7 @@ public class Medico implements Comparable<Medico>{
 
     @Override
     public String toString() {
-        return "Medico{" +
-                "matriculaProfesional=" + matriculaProfesional +
-                ", nombre='" + nombre + '\'' +
-                ", especialidad='" + especialidad + '\'' +
-                '}';
+        return String.format("%-25s %-15s %-15s%n", nombre, especialidad, matriculaProfesional);
     }
 
 
